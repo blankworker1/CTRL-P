@@ -38,8 +38,8 @@ Version 1 is fixed and does not change.
 ```
 State	  Day	  Description
 
-0	      0	    Full black circle
-1	      6	    Left 1/3 black
+0	      0	      Full black circle
+1	      6	      Left 1/3 black
 2	      12	  Left 2/3 black
 3	      18	  Right 2/3 black
 4	      24	  Right 1/3 black
@@ -71,6 +71,7 @@ Embed
 ```
 <div data-ctrlp-clock></div>
 <script src="https://blankworker1.github.io/CTRL-P/clock.v1.js"></script>
+
 ```
 
 The clock renders automatically and updates at each phase transition.
@@ -81,6 +82,7 @@ The clock renders automatically and updates at each phase transition.
 ## Optional Size Parameter
 ```
 <div data-ctrlp-clock data-size="150"></div>
+
 ```
 
 Size is defined in pixels.
@@ -106,6 +108,7 @@ previewIds.forEach((id, idx) => {
   container.appendChild(createSVG(state, 60));
 });
 </script>
+
 ```
 
 ---
