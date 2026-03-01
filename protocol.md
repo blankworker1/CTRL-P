@@ -37,22 +37,22 @@ The protocol exists where these components intersect.
 
 ## The Protocol
 
-intro
+**intro**
 ctrl–p is a printing protocol at street level.
 
-ctrl
+**ctrl**
 The streets are saturated with messages. Publicity. Branding. Notices. These walls already exist. We do not compete with them.
 
-p
+**p**
 Five panels. 70 × 100 cm. Screen printed. Installed in plain view. One panel changes every six days. Every panel is replaced, never edited.
 
-process
+**process**
 Printing is repetition. Repetition establishes presence. The panels form the printed pulse. The objective is continuity.
 
-performance
+**performance**
 The unit of performance is time. The five-panel set is a slow-motion single slide, revealed as one cycle transitions into the next. If the panels remain, permission is assumed. Silence is sufficient.
 
-persistence
+**persistence**
 The process endures. The rhythm is the constant. Thirty days pass, and a new cycle begins. The protocol persists in the act of replacement.
 
 
