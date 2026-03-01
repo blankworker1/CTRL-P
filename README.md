@@ -11,7 +11,7 @@ It is composed of five structural components:
 
 **Cycles** — 30-day rotations defined entirely by elapsed time.
 
-**Feed** — a continuous, hourly visual ledger from each Node.
+**Feed** — a continuous, hourly image ledger from each Node.
 
 **Interface** — a minimal public layer that renders visibility without influencing operation.
 
