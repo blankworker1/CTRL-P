@@ -26,7 +26,6 @@
     circle.setAttribute("cy", "50");
     circle.setAttribute("r", "50");
     circle.setAttribute("fill", "white");
-
     svg.appendChild(circle);
 
     const overlay = document.createElementNS(svgNS, "rect");
@@ -58,7 +57,6 @@
     }
 
     svg.appendChild(overlay);
-
     return svg;
   }
 
@@ -75,7 +73,6 @@
 
   document.addEventListener("DOMContentLoaded", init);
 
-  // Expose createSVG to global scope for preview purposes
+  // ✅ Expose createSVG globally so HTML previews can call it
   window.createSVG = createSVG;
 })();
-
