@@ -1,80 +1,51 @@
-(function () {
-  const EPOCH = Date.parse("2026-03-03T00:00:00Z");
-  const STATE_DURATION_HOURS = 144;
-  const CYCLE_HOURS = 720;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CTRL-P Slow Base-5 Clock</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 40px; }
+    .clock-row { display: flex; justify-content: center; gap: 20px; margin-top: 20px; }
+    .clock-container { display: flex; flex-direction: column; align-items: center; }
+    .preview-svg { border: 1px solid #ccc; border-radius: 50%; }
+  </style>
+</head>
+<body>
+  <h1>CTRL-P Slow Base-5 Clock</h1>
+  
+  <!-- Live Clock -->
+  <div class="clock-container">
+    <div data-ctrlp-clock></div>
+    <p>Current State</p>
+  </div>
 
-  function getState() {
-    const now = Date.now();
-    const elapsedMs = now - EPOCH;
-    const elapsedHours = elapsedMs / (1000 * 60 * 60);
+  <!-- Symmetrical Preview Row -->
+  <div class="clock-row">
+    <div class="clock-container"><div id="preview0"></div><p>Day 0</p></div>
+    <div class="clock-container"><div id="preview1"></div><p>Day 6</p></div>
+    <div class="clock-container"><div id="preview2"></div><p>Day 12</p></div>
+    <div class="clock-container"><div id="preview3"></div><p>Day 18</p></div>
+    <div class="clock-container"><div id="preview4"></div><p>Day 24</p></div>
+  </div>
 
-    const normalized =
-      ((elapsedHours % CYCLE_HOURS) + CYCLE_HOURS) % CYCLE_HOURS;
+  <!-- Clock Script -->
+  <script src="clock.v1.js"></script>
+  <script>
+    // Symmetrical mapping for visual pattern
+    // Shows expansion → contraction
+    const stateSequence = [0, 1, 2, 3, 4]; // corresponds to Day 0,6,12,18,24
 
-    return Math.floor(normalized / STATE_DURATION_HOURS);
-  }
-
-  function createSVG(state, size = 100) {
-    const svgNS = "http://www.w3.org/2000/svg";
-    const svg = document.createElementNS(svgNS, "svg");
-    svg.setAttribute("width", size);
-    svg.setAttribute("height", size);
-    svg.setAttribute("viewBox", "0 0 100 100");
-
-    const circle = document.createElementNS(svgNS, "circle");
-    circle.setAttribute("cx", "50");
-    circle.setAttribute("cy", "50");
-    circle.setAttribute("r", "50");
-    circle.setAttribute("fill", "white");
-
-    svg.appendChild(circle);
-
-    const overlay = document.createElementNS(svgNS, "rect");
-    overlay.setAttribute("y", "0");
-    overlay.setAttribute("height", "100");
-    overlay.setAttribute("fill", "black");
-
-    switch (state) {
-      case 0:
-        overlay.setAttribute("x", "0");
-        overlay.setAttribute("width", "100");
-        break;
-      case 1:
-        overlay.setAttribute("x", "0");
-        overlay.setAttribute("width", "33.333");
-        break;
-      case 2:
-        overlay.setAttribute("x", "0");
-        overlay.setAttribute("width", "66.666");
-        break;
-      case 3:
-        overlay.setAttribute("x", "33.333");
-        overlay.setAttribute("width", "66.666");
-        break;
-      case 4:
-        overlay.setAttribute("x", "66.666");
-        overlay.setAttribute("width", "33.333");
-        break;
-    }
-
-    svg.appendChild(overlay);
-
-    return svg;
-  }
-
-  function init() {
-    const elements = document.querySelectorAll("[data-ctrlp-clock]");
-    const state = getState();
-
-    elements.forEach((el) => {
-      const size = el.getAttribute("data-size") || 100;
-      el.innerHTML = "";
-      el.appendChild(createSVG(state, size));
+    const previewIds = ["preview0","preview1","preview2","preview3","preview4"];
+    previewIds.forEach((id, idx) => {
+      const container = document.getElementById(id);
+      const state = stateSequence[idx];
+      const svg = createSVG(state, 60); // smaller for timeline
+      svg.classList.add("preview-svg");
+      container.appendChild(svg);
     });
-  }
-
-  document.addEventListener("DOMContentLoaded", init);
-})();
+  </script>
+</body>
+</html>
 
 
 
