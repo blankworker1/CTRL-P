@@ -35,6 +35,7 @@ Version 1 is fixed and does not change.
 
 ## State Sequence
 
+```
 State	  Day	  Description
 
 0	      0	    Full black circle
@@ -44,6 +45,7 @@ State	  Day	  Description
 4	      24	  Right 1/3 black
 0	      30	  Cycle repeats
 
+```
 
 The sequence progresses strictly by elapsed UTC time since epoch.
 
@@ -53,9 +55,9 @@ The sequence progresses strictly by elapsed UTC time since epoch.
 ## Deterministic Logic
 
 State is calculated as:
-
+```
 floor((current_utc - epoch) / 144 hours) mod 5
-
+```
 No external input.
 No synchronization with lunar phases.
 No human intervention.
@@ -66,9 +68,10 @@ No human intervention.
 ## Usage
 
 Embed
-
+```
 <div data-ctrlp-clock></div>
 <script src="https://blankworker1.github.io/CTRL-P/clock.v1.js"></script>
+```
 
 The clock renders automatically and updates at each phase transition.
 
@@ -76,8 +79,9 @@ The clock renders automatically and updates at each phase transition.
 ---
 
 ## Optional Size Parameter
-
+```
 <div data-ctrlp-clock data-size="150"></div>
+```
 
 Size is defined in pixels.
 
@@ -85,7 +89,7 @@ Size is defined in pixels.
 ---
 
 ## Optional Preview (All States)
-
+```
 <div id="preview0"></div>
 <div id="preview1"></div>
 <div id="preview2"></div>
@@ -102,7 +106,7 @@ previewIds.forEach((id, idx) => {
   container.appendChild(createSVG(state, 60));
 });
 </script>
-
+```
 
 ---
 
