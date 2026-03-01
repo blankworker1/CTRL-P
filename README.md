@@ -1,6 +1,10 @@
 # CTRL-P
 
 
+
+![clockimage](https://emerald-real-clownfish-172.mypinata.cloud/ipfs/bafkreidkffvvhh3e5cigey4g2m2ybtxr5qj5e7co32ggghdh2sg5azdezy)
+
+
 CTRL–P is a time-governed printing protocol operating at street level.
 
 It is composed of five structural components:
