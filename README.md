@@ -8,6 +8,8 @@ A public, deterministic 5-state slow clock operating on a fixed 30-day cycle.
 
 Designed as infrastructure, not decoration.
 
+[Link](https://blankworker1.github.io/CTRL-P/)
+
 
 ---
 
