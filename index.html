@@ -31,19 +31,19 @@
   <!-- Clock Script -->
   <script src="clock.v1.js"></script>
   <script>
-    // Symmetrical mapping for visual pattern
-    // Shows expansion → contraction
-    const stateSequence = [0, 1, 2, 3, 4]; // corresponds to Day 0,6,12,18,24
-
-    const previewIds = ["preview0","preview1","preview2","preview3","preview4"];
-    previewIds.forEach((id, idx) => {
-      const container = document.getElementById(id);
-      const state = stateSequence[idx];
-      const svg = createSVG(state, 60); // smaller for timeline
-      svg.classList.add("preview-svg");
-      container.appendChild(svg);
-    });
-  </script>
+document.addEventListener("DOMContentLoaded", () => {
+  const stateSequence = [0, 1, 2, 3, 4]; // Day 0,6,12,18,24
+  const previewIds = ["preview0","preview1","preview2","preview3","preview4"];
+  
+  previewIds.forEach((id, idx) => {
+    const container = document.getElementById(id);
+    const state = stateSequence[idx];
+    const svg = createSVG(state, 60); // smaller for timeline
+    svg.classList.add("preview-svg");
+    container.appendChild(svg);
+  });
+});
+</script>
 </body>
 </html>
 
