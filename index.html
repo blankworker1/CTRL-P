@@ -26,14 +26,15 @@
     <div class="clock-container"><div id="preview2"></div><p>Day 12</p></div>
     <div class="clock-container"><div id="preview3"></div><p>Day 18</p></div>
     <div class="clock-container"><div id="preview4"></div><p>Day 24</p></div>
+    <div class="clock-container"><div id="preview5"></div><p>Day 30</p></div>
   </div>
 
   <!-- Clock Script -->
   <script src="clock.v1.js"></script>
   <script>
 document.addEventListener("DOMContentLoaded", () => {
-  const stateSequence = [0, 1, 2, 3, 4]; // Day 0,6,12,18,24
-  const previewIds = ["preview0","preview1","preview2","preview3","preview4"];
+  const stateSequence = [0, 1, 2, 3, 4, 0]; // Day 0,6,12,18,24,30
+  const previewIds = ["preview0","preview1","preview2","preview3","preview4","preview5"];
   
   previewIds.forEach((id, idx) => {
     const container = document.getElementById(id);
