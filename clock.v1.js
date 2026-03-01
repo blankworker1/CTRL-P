@@ -76,6 +76,7 @@
   document.addEventListener("DOMContentLoaded", init);
 })();
 
-
+// Expose createSVG to global scope for preview purposes
+window.createSVG = createSVG;
 
 
