@@ -20,13 +20,13 @@ It does not respond to reaction, interpretation, or approval.
 
 The CTRL–P protocol consists of:
 
-A fixed public clock
+- A fixed public clock
 
-Sequential printed panel replacement
+- Sequential printed panel replacement
 
-A continuous image ledger
+- A continuous image ledger
 
-A web interface for observation
+- A web interface for observation
 
 
 Each component operates independently but remains synchronized.
