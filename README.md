@@ -1,6 +1,9 @@
 # CTRL-P
 
+![clockimage2](https://emerald-real-clownfish-172.mypinata.cloud/ipfs/bafkreig262ovhdsiyzmui672bjkcm36enar3vu5ddscjgscqdjl5sqla54)
 
+
+[View the live CTRL-P v2 clock](https://blankworker1.github.io/CTRL-P/v2/)
 
 ![clockimage](https://emerald-real-clownfish-172.mypinata.cloud/ipfs/bafkreidkffvvhh3e5cigey4g2m2ybtxr5qj5e7co32ggghdh2sg5azdezy)
 
