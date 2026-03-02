@@ -124,6 +124,19 @@ for (let i = 0; i < 5; i++) {
     hand.setAttribute("stroke-width","6");
     svg.appendChild(hand);
 
+    // Text label
+const text = document.createElementNS(svgNS, "text");
+text.setAttribute("x", "300");
+text.setAttribute("y", "450");  // halfway between center (300) and bottom (600)
+text.setAttribute("text-anchor", "middle");
+text.setAttribute("dominant-baseline", "middle");
+text.setAttribute("font-family", "sans-serif");
+text.setAttribute("font-size", "36");
+text.setAttribute("font-weight", "bold");
+text.setAttribute("fill", "black");
+text.textContent = "CTRL-P";
+svg.appendChild(text);
+
     container.appendChild(svg);
   }
 
