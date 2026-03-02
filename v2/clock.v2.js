@@ -1,4 +1,4 @@
-(function () {
+loo(function () {
 
   const EPOCH = Date.parse("2026-03-03T00:00:00Z");
   const TOTAL_HOURS = 720; // 30 days
@@ -88,8 +88,8 @@ for (let i = 0; i < 5; i++) {
     case 0: rect.setAttribute("x","-22"); rect.setAttribute("width","44"); break; // full
     case 1: rect.setAttribute("x","-22"); rect.setAttribute("width","14"); break; // 1/3 left
     case 2: rect.setAttribute("x","-22"); rect.setAttribute("width","28"); break; // 2/3 left
-    case 3: rect.setAttribute("x","-10"); rect.setAttribute("width","28"); break; // 2/3 right
-    case 4: rect.setAttribute("x","10");  rect.setAttribute("width","18"); break; // 1/3 right
+    case 3: rect.setAttribute("x","-14"); rect.setAttribute("width","22"); break; // 2/3 right
+    case 4: rect.setAttribute("x","10");  rect.setAttribute("width","14"); break; // 1/3 right
   }
 
   // Use mask instead of clip-path
