@@ -52,17 +52,15 @@
     }
 
   
-  // Major symbols (5) 
-  const symbolOrder = [0, 2, 1, 4, 3];
 
-  for (let i = 0; i < 5; i++) {
+// Major symbols (5) — correct order and clipped
+const symbolOrder = [0, 2, 1, 4, 3];
 
+for (let i = 0; i < 5; i++) {
   const angle = i * 72 - 90;  // 5 symbols
   const rad = angle * (Math.PI / 180);
 
   const group = document.createElementNS(svgNS, "g");
-
-  // Position around dial only (NO rotation)
   group.setAttribute(
     "transform",
     `translate(${300 + Math.cos(rad) * 230}, ${300 + Math.sin(rad) * 230})`
@@ -70,10 +68,33 @@
 
   const state = symbolOrder[i];
 
+  // Circle
+  const circle = document.createElementNS(svgNS, "circle");
+  circle.setAttribute("cx", "0");
+  circle.setAttribute("cy", "0");
+  circle.setAttribute("r", "22");
+  circle.setAttribute("fill", "white");
+  circle.setAttribute("stroke", "black");
+  circle.setAttribute("stroke-width", "2");
+  group.appendChild(circle);
+
+  // Clip path
+  const clipId = `clip${i}`;
+  const clip = document.createElementNS(svgNS, "clipPath");
+  clip.setAttribute("id", clipId);
+  const clipCircle = document.createElementNS(svgNS, "circle");
+  clipCircle.setAttribute("cx", "0");
+  clipCircle.setAttribute("cy", "0");
+  clipCircle.setAttribute("r", "22");
+  clip.appendChild(clipCircle);
+  svg.appendChild(clip);
+
+  // Rectangle (inside clip)
   const rect = document.createElementNS(svgNS, "rect");
   rect.setAttribute("y", "-22");
   rect.setAttribute("height", "44");
   rect.setAttribute("fill", "black");
+  rect.setAttribute("clip-path", `url(#${clipId})`);
 
   switch (state) {
     case 0: rect.setAttribute("x","-22"); rect.setAttribute("width","44"); break;
@@ -84,20 +105,8 @@
   }
 
   group.appendChild(rect);
-
-const circle = document.createElementNS(svgNS, "circle");
-  circle.setAttribute("cx", "0");
-  circle.setAttribute("cy", "0");
-  circle.setAttribute("r", "22");
-  circle.setAttribute("fill", "white");
-  circle.setAttribute("stroke", "black");
-  circle.setAttribute("stroke-width", "2");
-  group.appendChild(circle);
-
-    
   svg.appendChild(group);
 }
-
 
 
     // Hand
