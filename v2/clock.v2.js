@@ -53,7 +53,7 @@
 
   
 
-// Major symbols (5) — correct order and clipped
+// Major symbols (5) — correct order and fully masked
 const symbolOrder = [0, 2, 1, 4, 3];
 
 for (let i = 0; i < 5; i++) {
@@ -78,31 +78,34 @@ for (let i = 0; i < 5; i++) {
   circle.setAttribute("stroke-width", "2");
   group.appendChild(circle);
 
-  // Clip path
-  const clipId = `clip${i}`;
-  const clip = document.createElementNS(svgNS, "clipPath");
-  clip.setAttribute("id", clipId);
-  const clipCircle = document.createElementNS(svgNS, "circle");
-  clipCircle.setAttribute("cx", "0");
-  clipCircle.setAttribute("cy", "0");
-  clipCircle.setAttribute("r", "22");
-  clip.appendChild(clipCircle);
-  svg.appendChild(clip);
-
-  // Rectangle (inside clip)
+  // Rectangle overlay
   const rect = document.createElementNS(svgNS, "rect");
   rect.setAttribute("y", "-22");
   rect.setAttribute("height", "44");
   rect.setAttribute("fill", "black");
-  rect.setAttribute("clip-path", `url(#${clipId})`);
 
   switch (state) {
-    case 0: rect.setAttribute("x","-22"); rect.setAttribute("width","44"); break;
-    case 1: rect.setAttribute("x","-22"); rect.setAttribute("width","14"); break;
-    case 2: rect.setAttribute("x","-22"); rect.setAttribute("width","28"); break;
-    case 3: rect.setAttribute("x","-10");  rect.setAttribute("width","28"); break;
-    case 4: rect.setAttribute("x","10");   rect.setAttribute("width","14"); break;
+    case 0: rect.setAttribute("x","-22"); rect.setAttribute("width","44"); break; // full
+    case 1: rect.setAttribute("x","-22"); rect.setAttribute("width","14"); break; // 1/3 left
+    case 2: rect.setAttribute("x","-22"); rect.setAttribute("width","28"); break; // 2/3 left
+    case 3: rect.setAttribute("x","-18"); rect.setAttribute("width","28"); break; // 2/3 right
+    case 4: rect.setAttribute("x","10");  rect.setAttribute("width","14"); break; // 1/3 right
   }
+
+  // Use mask instead of clip-path
+  const mask = document.createElementNS(svgNS, "mask");
+  const maskId = `mask${i}`;
+  mask.setAttribute("id", maskId);
+
+  const maskCircle = document.createElementNS(svgNS, "circle");
+  maskCircle.setAttribute("cx", "0");
+  maskCircle.setAttribute("cy", "0");
+  maskCircle.setAttribute("r", "22");
+  maskCircle.setAttribute("fill", "white"); // masks what is visible
+  mask.appendChild(maskCircle);
+  svg.appendChild(mask);
+
+  rect.setAttribute("mask", `url(#${maskId})`);
 
   group.appendChild(rect);
   svg.appendChild(group);
