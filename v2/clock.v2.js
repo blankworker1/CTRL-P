@@ -70,15 +70,6 @@
 
   const state = symbolOrder[i];
 
-  const circle = document.createElementNS(svgNS, "circle");
-  circle.setAttribute("cx", "0");
-  circle.setAttribute("cy", "0");
-  circle.setAttribute("r", "22");
-  circle.setAttribute("fill", "white");
-  circle.setAttribute("stroke", "black");
-  circle.setAttribute("stroke-width", "2");
-  group.appendChild(circle);
-
   const rect = document.createElementNS(svgNS, "rect");
   rect.setAttribute("y", "-22");
   rect.setAttribute("height", "44");
@@ -93,6 +84,17 @@
   }
 
   group.appendChild(rect);
+
+const circle = document.createElementNS(svgNS, "circle");
+  circle.setAttribute("cx", "0");
+  circle.setAttribute("cy", "0");
+  circle.setAttribute("r", "22");
+  circle.setAttribute("fill", "white");
+  circle.setAttribute("stroke", "black");
+  circle.setAttribute("stroke-width", "2");
+  group.appendChild(circle);
+
+    
   svg.appendChild(group);
 }
 
