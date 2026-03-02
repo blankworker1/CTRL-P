@@ -1,4 +1,4 @@
-l9loo(function () {
+(function () {
 
   const EPOCH = Date.parse("2026-03-03T00:00:00Z");
   const TOTAL_HOURS = 720; // 30 days
