@@ -96,8 +96,8 @@ for (let i = 0; i < 5; i++) {
     case 0: rectX = -circleR; rectWidth = 2 * circleR; break; // full
     case 1: rectX = -circleR; rectWidth = 14; break;           // 1/3 left
     case 2: rectX = -circleR; rectWidth = 28; break;           // 2/3 left
-    case 3: rectX = 8;      rectWidth = 14; break;           // 2/3 right
-    case 4: rectX = -14;        rectWidth = 36; break;           // 1/3 right
+    case 3: rectX = -14;      rectWidth = 36; break;           // 2/3 right
+    case 4: rectX = 8;        rectWidth = 14; break;           // 1/3 right
   }
 
   const rect = document.createElementNS(svgNS, "rect");
