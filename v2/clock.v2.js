@@ -52,8 +52,7 @@ l9loo(function () {
     }
 
   
-
-// Major symbols (5) — correct order and fully masked
+// Major symbols (5) — correct order, no mask needed
 const symbolOrder = [0, 2, 1, 4, 3];
 
 for (let i = 0; i < 5; i++) {
@@ -68,17 +67,7 @@ for (let i = 0; i < 5; i++) {
 
   const state = symbolOrder[i];
 
-  // Circle
-  const circle = document.createElementNS(svgNS, "circle");
-  circle.setAttribute("cx", "0");
-  circle.setAttribute("cy", "0");
-  circle.setAttribute("r", "22");
-  circle.setAttribute("fill", "white");
-  circle.setAttribute("stroke", "black");
-  circle.setAttribute("stroke-width", "2");
-  group.appendChild(circle);
-
-  // Rectangle overlay
+  // Rectangle (draw first)
   const rect = document.createElementNS(svgNS, "rect");
   rect.setAttribute("y", "-22");
   rect.setAttribute("height", "44");
@@ -88,30 +77,26 @@ for (let i = 0; i < 5; i++) {
     case 0: rect.setAttribute("x","-22"); rect.setAttribute("width","44"); break; // full
     case 1: rect.setAttribute("x","-22"); rect.setAttribute("width","14"); break; // 1/3 left
     case 2: rect.setAttribute("x","-22"); rect.setAttribute("width","28"); break; // 2/3 left
-    case 3: rect.setAttribute("x","-14"); rect.setAttribute("width","22"); break; // 2/3 right
-    case 4: rect.setAttribute("x","10");  rect.setAttribute("width","14"); break; // 1/3 right
+    case 3: rect.setAttribute("x","-22"); rect.setAttribute("width","28"); break; // 2/3 right
+    case 4: rect.setAttribute("x","-10"); rect.setAttribute("width","14"); break; // 1/3 right
   }
 
-  // Use mask instead of clip-path
-  const mask = document.createElementNS(svgNS, "mask");
-  const maskId = `mask${i}`;
-  mask.setAttribute("id", maskId);
-
-  const maskCircle = document.createElementNS(svgNS, "circle");
-  maskCircle.setAttribute("cx", "0");
-  maskCircle.setAttribute("cy", "0");
-  maskCircle.setAttribute("r", "22");
-  maskCircle.setAttribute("fill", "white"); // masks what is visible
-  mask.appendChild(maskCircle);
-  svg.appendChild(mask);
-
-  rect.setAttribute("mask", `url(#${maskId})`);
-
   group.appendChild(rect);
+
+  // Circle (draw on top to mask edges)
+  const circle = document.createElementNS(svgNS, "circle");
+  circle.setAttribute("cx", "0");
+  circle.setAttribute("cy", "0");
+  circle.setAttribute("r", "22");
+  circle.setAttribute("fill", "white");
+  circle.setAttribute("stroke", "black");
+  circle.setAttribute("stroke-width", "2");
+  group.appendChild(circle);
+
   svg.appendChild(group);
 }
 
-
+    
     // Hand
     const handAngle = getRotationAngle() - 90;
     const handRad = handAngle*(Math.PI/180);
