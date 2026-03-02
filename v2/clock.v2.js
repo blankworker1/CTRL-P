@@ -100,8 +100,8 @@ for (let i = 0; i < 5; i++) {
     case 0: rect.setAttribute("x","-22"); rect.setAttribute("width","44"); break;
     case 1: rect.setAttribute("x","-22"); rect.setAttribute("width","14"); break;
     case 2: rect.setAttribute("x","-22"); rect.setAttribute("width","28"); break;
-    case 3: rect.setAttribute("x","-9");  rect.setAttribute("width","28"); break;
-    case 4: rect.setAttribute("x","9");   rect.setAttribute("width","14"); break;
+    case 3: rect.setAttribute("x","-10");  rect.setAttribute("width","28"); break;
+    case 4: rect.setAttribute("x","10");   rect.setAttribute("width","14"); break;
   }
 
   group.appendChild(rect);
