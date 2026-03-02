@@ -32,9 +32,9 @@
     outer.setAttribute("fill", "white");
     svg.appendChild(outer);
 
-    // Minor ticks (25)
-    for (let i = 0; i < 25; i++) {
-      const angle = i * (360/25);
+      // Minor ticks (30)
+    for (let i = 0; i < 30; i++) {
+      const angle = i * (360/30);
       const rad = (angle - 90) * (Math.PI/180);
       const x1 = 300 + Math.cos(rad)*260;
       const y1 = 300 + Math.sin(rad)*260;
