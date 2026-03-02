@@ -51,53 +51,66 @@
       svg.appendChild(line);
     }
 
-    // Major symbols (5) — correct sequence and perfectly contained
-    const symbolOrder = [0, 2, 1, 4, 3];
-    const circleR = 22; // radius
+    // Major symbols (5) — moon phase style using clipPath
+const symbolOrder = [0, 2, 1, 4, 3];
+const circleR = 22;
 
-    for (let i = 0; i < 5; i++) {
-      const angle = i * 72 - 90;  // 5 symbols around dial
-      const rad = angle * (Math.PI / 180);
+for (let i = 0; i < 5; i++) {
+  const angle = i * 72 - 90;
+  const rad = angle * (Math.PI / 180);
 
-      const group = document.createElementNS(svgNS, "g");
-      group.setAttribute(
-        "transform",
-        `translate(${300 + Math.cos(rad) * 230}, ${300 + Math.sin(rad) * 230})`
-      );
+  const group = document.createElementNS(svgNS, "g");
+  group.setAttribute(
+    "transform",
+    `translate(${300 + Math.cos(rad) * 230}, ${300 + Math.sin(rad) * 230})`
+  );
 
-      const state = symbolOrder[i];
+  const state = symbolOrder[i];
+  const clipId = `clip-${i}`;
 
-      // Rectangle widths and positions
-      let rectX, rectWidth;
-      switch (state) {
-        case 0: rectX = -circleR; rectWidth = 2*circleR; break;       // full
-        case 1: rectX = -circleR; rectWidth = 14; break;               // 1/3 left
-        case 2: rectX = -circleR; rectWidth = 28; break;               // 2/3 left
-        case 3: rectX = -28; rectWidth = 28; break;                    // 2/3 right
-        case 4: rectX = 8; rectWidth = 14; break;                      // 1/3 right
-      }
+  // Define a clipPath shaped like the circle
+  const defs = document.createElementNS(svgNS, "defs");
+  const clipPath = document.createElementNS(svgNS, "clipPath");
+  clipPath.setAttribute("id", clipId);
+  const clipCircle = document.createElementNS(svgNS, "circle");
+  clipCircle.setAttribute("cx", 0);
+  clipCircle.setAttribute("cy", 0);
+  clipCircle.setAttribute("r", circleR);
+  clipPath.appendChild(clipCircle);
+  defs.appendChild(clipPath);
+  group.appendChild(defs);
 
-      // Rectangle (draw first)
-      const rect = document.createElementNS(svgNS, "rect");
-      rect.setAttribute("x", rectX);
-      rect.setAttribute("y", -circleR);
-      rect.setAttribute("width", rectWidth);
-      rect.setAttribute("height", 2*circleR);
-      rect.setAttribute("fill", "black");
-      group.appendChild(rect);
+  // White base circle
+  const baseCircle = document.createElementNS(svgNS, "circle");
+  baseCircle.setAttribute("cx", 0);
+  baseCircle.setAttribute("cy", 0);
+  baseCircle.setAttribute("r", circleR);
+  baseCircle.setAttribute("fill", "white");
+  baseCircle.setAttribute("stroke", "black");
+  baseCircle.setAttribute("stroke-width", 2);
+  group.appendChild(baseCircle);
 
-      // Circle on top
-      const circle = document.createElementNS(svgNS, "circle");
-      circle.setAttribute("cx", 0);
-      circle.setAttribute("cy", 0);
-      circle.setAttribute("r", circleR);
-      circle.setAttribute("fill", "white");
-      circle.setAttribute("stroke", "black");
-      circle.setAttribute("stroke-width", 2);
-      group.appendChild(circle);
+  // Black rectangle clipped to circle shape (moon phase fill)
+  let rectX, rectWidth;
+  switch (state) {
+    case 0: rectX = -circleR; rectWidth = 2 * circleR; break; // full
+    case 1: rectX = -circleR; rectWidth = 14; break;           // 1/3 left
+    case 2: rectX = -circleR; rectWidth = 28; break;           // 2/3 left
+    case 3: rectX = -28;      rectWidth = 28; break;           // 2/3 right
+    case 4: rectX = 8;        rectWidth = 14; break;           // 1/3 right
+  }
 
-      svg.appendChild(group);
-    }
+  const rect = document.createElementNS(svgNS, "rect");
+  rect.setAttribute("x", rectX);
+  rect.setAttribute("y", -circleR);
+  rect.setAttribute("width", rectWidth);
+  rect.setAttribute("height", 2 * circleR);
+  rect.setAttribute("fill", "black");
+  rect.setAttribute("clip-path", `url(#${clipId})`);
+  group.appendChild(rect);
+
+  svg.appendChild(group);
+}
 
     // Hand — shorter so tip is just under symbols
     const handAngle = getRotationAngle() - 90;
