@@ -3,7 +3,7 @@
 ![clockimage3](https://emerald-real-clownfish-172.mypinata.cloud/ipfs/bafkreidatdgf2pabiijwao5evg3ukbtrujq7yzxkc27eo44kgnphivedla)
 
 
-[View the live CTRL-P v2 clock](https://blankworker1.github.io/CTRL-P/v2/)
+[View the live CTRL-P clock](https://blankworker1.github.io/CTRL-P/v2/)
 
 ![clockimage](https://emerald-real-clownfish-172.mypinata.cloud/ipfs/bafkreidkffvvhh3e5cigey4g2m2ybtxr5qj5e7co32ggghdh2sg5azdezy)
 
