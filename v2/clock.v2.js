@@ -112,17 +112,49 @@ for (let i = 0; i < 5; i++) {
   svg.appendChild(group);
 }
 
-    // Hand — shorter so tip is just under symbols
-    const handAngle = getRotationAngle() - 90;
-    const handRad = handAngle*(Math.PI/180);
-    const hand = document.createElementNS(svgNS, "line");
-    hand.setAttribute("x1","300");
-    hand.setAttribute("y1","300");
-    hand.setAttribute("x2", 300 + Math.cos(handRad)*200); // 200 < 230 to stop under symbols
-    hand.setAttribute("y2", 300 + Math.sin(handRad)*200);
-    hand.setAttribute("stroke","black");
-    hand.setAttribute("stroke-width","6");
-    svg.appendChild(hand);
+    // Hand
+
+    // Tapered hand
+const handAngle = getRotationAngle() - 90;
+const handRad = handAngle * (Math.PI/180);
+const handLength = 200;
+const baseWidth = 10;
+const tipWidth = 2;
+
+const xTip = 300 + Math.cos(handRad) * handLength;
+const yTip = 300 + Math.sin(handRad) * handLength;
+
+const perpRad = handRad + Math.PI / 2;
+
+const xBaseLeft  = 300 + Math.cos(perpRad) * (baseWidth/2);
+const yBaseLeft  = 300 + Math.sin(perpRad) * (baseWidth/2);
+
+const xBaseRight = 300 - Math.cos(perpRad) * (baseWidth/2);
+const yBaseRight = 300 - Math.sin(perpRad) * (baseWidth/2);
+
+const xTipLeft  = xTip + Math.cos(perpRad) * (tipWidth/2);
+const yTipLeft  = yTip + Math.sin(perpRad) * (tipWidth/2);
+
+const xTipRight = xTip - Math.cos(perpRad) * (tipWidth/2);
+const yTipRight = yTip - Math.sin(perpRad) * (tipWidth/2);
+
+const hand = document.createElementNS(svgNS, "polygon");
+hand.setAttribute("points", `
+  ${xBaseLeft},${yBaseLeft}
+  ${xTipLeft},${yTipLeft}
+  ${xTipRight},${yTipRight}
+  ${xBaseRight},${yBaseRight}
+`);
+hand.setAttribute("fill", "black");
+svg.appendChild(hand);
+
+// Center pivot
+const pivot = document.createElementNS(svgNS, "circle");
+pivot.setAttribute("cx", "300");
+pivot.setAttribute("cy", "300");
+pivot.setAttribute("r", "8");
+pivot.setAttribute("fill", "black");
+svg.appendChild(pivot);
 
     // Text label
 const text = document.createElementNS(svgNS, "text");
