@@ -1,6 +1,6 @@
 # INTERFACE
 
-[Link](https://ctrl-print-art.base44.app)
+[Link to Webapp v1](https://ctrl-print-art.base44.app)
 ---
 
 ## CTRL–P Interface Specification (v1)
