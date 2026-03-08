@@ -112,7 +112,7 @@ The clock remains infrastructural.
 
 ---
 
-## Nodes View
+## Nodes
 
 The Interface also provides:
 
@@ -137,7 +137,7 @@ Override clock state
 
 ---
 
-## Feed View
+## Feed 
 
 The Feed is presented as:
 
