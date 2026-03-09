@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ctrl-p.art — NIT-001-C01-P04 — 70x100cm — 1 unit = 1mm -->
+<svg width="700mm" height="1000mm" viewBox="0 0 700 1000" xmlns="http://www.w3.org/2000/svg">
+  <metadata>
+    <ctrl-p xmlns:ctrl="https://ctrl-p.art/schema">
+      <node>NIT-001</node>
+      <city>Bosa</city>
+      <cycle>01</cycle>
+      <poster>4 of 5</poster>
+      <timestamp>C01D07H16-707</timestamp>
+    <quad id="I" screen="BLOCKS-I" ink="#000000" inverted="true"/>
+    <quad id="II" screen="TRI-N" ink="#000000" inverted="false"/>
+    <quad id="III" screen="TRI-I" ink="#000000" inverted="true"/>
+    <quad id="IV" screen="BLOCKS-N" ink="#000000" inverted="false"/>
+    </ctrl-p>
+  </metadata>
+    <rect width="700" height="1000" fill="#f0efe8"/>
+    <g transform="rotate(180,195,295)"><svg x="45" y="95" width="300" height="400" viewBox="0 0 300 400"><rect width="300" height="400" fill="#f0efe8"/><rect x="18.0" y="38.0" width="264.0" height="52.0" fill="#000000"/><rect x="48.0" y="106.0" width="204.0" height="52.0" fill="#000000"/><rect x="75.0" y="174.0" width="150.0" height="52.0" fill="#000000"/><rect x="102.0" y="242.0" width="96.0" height="52.0" fill="#000000"/><rect x="123.0" y="310.0" width="54.0" height="52.0" fill="#000000"/></svg></g><g ><svg x="355" y="95" width="300" height="400" viewBox="0 0 300 400"><rect width="300" height="400" fill="#f0efe8"/>
+     <polygon points="150,24 282,376 18,376" fill="#000000"/></svg></g><g transform="rotate(180,195,705)"><svg x="45" y="505" width="300" height="400" viewBox="0 0 300 400"><rect width="300" height="400" fill="#f0efe8"/>
+     <polygon points="150,24 282,376 18,376" fill="#000000"/></svg></g><g ><svg x="355" y="505" width="300" height="400" viewBox="0 0 300 400"><rect width="300" height="400" fill="#f0efe8"/><rect x="18.0" y="38.0" width="264.0" height="52.0" fill="#000000"/><rect x="48.0" y="106.0" width="204.0" height="52.0" fill="#000000"/><rect x="75.0" y="174.0" width="150.0" height="52.0" fill="#000000"/><rect x="102.0" y="242.0" width="96.0" height="52.0" fill="#000000"/><rect x="123.0" y="310.0" width="54.0" height="52.0" fill="#000000"/></svg></g><rect x="345" y="95" width="10" height="810" fill="#f0efe8"/><rect x="45" y="495" width="610" height="10" fill="#f0efe8"/>
+  </svg>
