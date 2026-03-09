@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ctrl-p.art screen archive — DIAG — 300x400mm — xTool engraving file -->
+<svg width="300mm" height="400mm" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+  <line x1="-162.00" y1="0" x2="138.00" y2="400" stroke="#000" stroke-width="30.00"/>
+  <line x1="-108.00" y1="0" x2="192.00" y2="400" stroke="#000" stroke-width="30.00"/>
+  <line x1="-54.00" y1="0" x2="246.00" y2="400" stroke="#000" stroke-width="30.00"/>
+  <line x1="0.00" y1="0" x2="300.00" y2="400" stroke="#000" stroke-width="30.00"/>
+  <line x1="54.00" y1="0" x2="354.00" y2="400" stroke="#000" stroke-width="30.00"/>
+  <line x1="108.00" y1="0" x2="408.00" y2="400" stroke="#000" stroke-width="30.00"/>
+  <line x1="162.00" y1="0" x2="462.00" y2="400" stroke="#000" stroke-width="30.00"/>
+</svg>

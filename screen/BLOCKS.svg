@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ctrl-p.art screen archive — BLOCKS — 300x400mm — xTool engraving file -->
+<svg width="300mm" height="400mm" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+  <rect x="18.00" y="38.00" width="264.00" height="52.00" fill="#000"/>
+  <rect x="48.00" y="106.00" width="204.00" height="52.00" fill="#000"/>
+  <rect x="75.00" y="174.00" width="150.00" height="52.00" fill="#000"/>
+  <rect x="102.00" y="242.00" width="96.00" height="52.00" fill="#000"/>
+  <rect x="123.00" y="310.00" width="54.00" height="52.00" fill="#000"/>
+</svg>
