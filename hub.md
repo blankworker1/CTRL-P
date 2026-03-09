@@ -1,8 +1,8 @@
-# ctrl-p.art — hub
+# HUB
 
 A hub is a screen engraving service. It holds the equipment needed to burn designs onto mesh screens from the canonical archive, and ships those screens to nodes anywhere in the world.
 
-Any operator can run a hub. There is no central authority. The only requirement is access to the right equipment and the GitHub archive.
+Any operator can run a hub. There is no central authority. The only requirement is access to the right equipment and the GitHub scren image archive.
 
 ---
 
