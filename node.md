@@ -1,4 +1,4 @@
-# ctrl-p.art — node
+# NODE 
 
 A node is a physical installation synchronised to the CTRL–P clock. It operates at street level and follows the clock without modification.
 
@@ -72,7 +72,7 @@ If a transition is missed, the interface records a black panel for that state. T
 ## Equipment
 
 **xTool screen printer**
-The printing unit. Four frames are included. Mesh screens engraved by a hub transfer ink onto paper in a single-colour pass per screen.
+The printing unit. Four frames are included. Mesh screens engraved by a hub. Printer transfers ink onto paper in a single-colour pass per screen.
 
 **Screen kit**
 12 screens, one per motif in the ctrl-p archive, engraved by a hub and shipped to the node. Each screen is labelled with its motif code (e.g. `SLASH`, `CIRCLE`, `DIAG`). A full kit gives access to all 12 motifs in normal and inverted orientation — inverted orientation is achieved by rotating the screen 180° manually on the frame before printing.
