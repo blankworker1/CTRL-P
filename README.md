@@ -8,6 +8,9 @@ CTRL–P is not a publishing platform. It is a protocol — a set of fixed rules
 
 ## The Clock
 
+![clockimage3](https://emerald-real-clownfish-172.mypinata.cloud/ipfs/bafkreidatdgf2pabiijwao5evg3ukbtrujq7yzxkc27eo44kgnphivedla)
+
+
 All activity in CTRL–P is anchored to a single fixed UTC epoch:
 
 ```
@@ -16,7 +19,12 @@ All activity in CTRL–P is anchored to a single fixed UTC epoch:
 
 From this moment, a 30-day clock began running. It has not stopped. It will not stop. Every node on the network references the same clock. Every cycle begins and ends at the same moment across the entire network, regardless of geography or content.
 
+![clockimage](https://emerald-real-clownfish-172.mypinata.cloud/ipfs/bafkreidkffvvhh3e5cigey4g2m2ybtxr5qj5e7co32ggghdh2sg5azdezy)
+
 The clock has five states, marked by moon-phase symbols at six-day intervals. A single hand completes one full rotation every 30 days. There are no hours. There are no minutes. There is only position within the cycle.
+
+[View the live CTRL-P clock](https://blankworker1.github.io/CTRL-P/v2/)
+
 
 ---
 
