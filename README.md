@@ -133,7 +133,10 @@ A node requires:
 
 The protocol does not require artistic training, institutional affiliation, or permission beyond access to the wall. If the panels remain, permission is assumed. Silence is sufficient.
 
-To register interest in becoming a node, contact the network through the interface.
+To register interest in becoming a node, raise an issue in this repository using the title format Node Application — [City], [Country]. Include a brief description of the wall, your print capacity, and whether camera access is available. Applications are reviewed and responded to in the thread.
+
+[Apply to become a node →](https://github.com/blankworker1/CTRL-P/issues/new?title=Node+Application&body=City:%0ACountry:%0AWall+description:%0APrint+capacity:%0ACamera+access:)
+
 
 ---
 
