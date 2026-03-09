@@ -135,7 +135,7 @@ The protocol does not require artistic training, institutional affiliation, or p
 
 To register interest in becoming a node, raise an issue in this repository using the title format Node Application — [City], [Country]. Include a brief description of the wall, your print capacity, and whether camera access is available. Applications are reviewed and responded to in the thread.
 
-[Apply to become a node →](https://github.com/blankworker1/CTRL-P/issues/new?title=Node+Application&body=City:%0ACountry:%0AWall+description:%0APrint+capacity:%0ACamera+access:)
+[Apply to become a node →](https://github.com/blankworker1/CTRL-P/issues/new?title=Node+Application&body=Country:%0ACity:%0AWall+description:%0APrint+capacity:%0ACamera+access:%0AOther+details:)
 
 
 ---
