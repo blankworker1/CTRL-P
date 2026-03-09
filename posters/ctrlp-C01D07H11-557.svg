@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ctrl-p.art — 70x100cm — 1 unit = 1mm -->
+<svg width="700mm" height="1000mm" viewBox="0 0 700 1000" xmlns="http://www.w3.org/2000/svg">
+    <rect width="700" height="1000" fill="#f0efe8"/>
+    <g transform="rotate(180,195,295)">
+      <svg x="45" y="95" width="300" height="400" viewBox="0 0 300 400"><rect width="300" height="400" fill="#f0efe8"/>
+     <polygon points="150,24 282,376 18,376" fill="#111111"/></svg>
+    </g><g >
+      <svg x="355" y="95" width="300" height="400" viewBox="0 0 300 400"><rect width="300" height="400" fill="#f0efe8"/>
+     <polygon points="150,24 282,376 18,376" fill="#ff0000"/></svg>
+    </g><g >
+      <svg x="45" y="505" width="300" height="400" viewBox="0 0 300 400"><rect width="300" height="400" fill="#f0efe8"/>
+     <polygon points="150,24 282,376 18,376" fill="#1c3a2a"/></svg>
+    </g><g transform="rotate(180,505,705)">
+      <svg x="355" y="505" width="300" height="400" viewBox="0 0 300 400"><rect width="300" height="400" fill="#f0efe8"/>
+     <polygon points="150,24 282,376 18,376" fill="#ff0000"/></svg>
+    </g>
+    <rect x="345" y="95" width="10" height="810" fill="#f0efe8"/><rect x="45" y="495" width="610" height="10" fill="#f0efe8"/>
+    
+  </svg>
