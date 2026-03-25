@@ -195,10 +195,10 @@ Precomputed thumbnails for faster rendering
 
 ```
 Failure Mode	  Behavior
-Camera offline	Black frame generated locally
+Camera offline	 Black frame generated locally
 Node offline	  Image missing for that hour
 Network down	  Upload delayed; black frame may temporarily appear
-Upload fails. 	Retry later, no overwrite
+Upload fails 	   Retry later, no overwrite
 Pi crash	      Systemd timer ensures next capture resumes after reboot
 
 ```
