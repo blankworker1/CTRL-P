@@ -1,253 +1,118 @@
-# FEED INFRASTRUCTURE 
-
-The complete end-to-end flow from camera to web page, including hardware, software, and upload/feed logic.
-
-
----
-
-## CTRL–P Feed Infrastructure
+# CTRL–P Feed Infrastructure v2.0
 
 **Overview**
 
-CTRL–P is a time-based visual feed protocol that captures one image per hour from a fixed camera, builds an append-only timeline, and makes it accessible via a web interface.
+CTRL–P is a time-based visual feed protocol designed for remote, off-grid archival. It captures one high-quality image per hour from a fixed camera, building an immutable, append-only timeline. This version focuses on a fully self-contained, "network-in-a-box" deployment that requires no internet for operation, making data retrieval simple and user-friendly via a local web interface.
 
-The system is designed to be minimal, robust, and deterministic, with failure always visible (black frames).
-
-This document explains the hardware and software architecture, the capture and storage pipeline, and how the feed is delivered to the web interface.
-
+The system is designed to be minimal, robust, and deterministic, with failure always visible (black frames) and all interactions managed through an elegant local control panel.
 
 ---
 
-**1. Hardware Requirements**
+## 1. Hardware Requirements
 
 Node Components
 
 Each CTRL–P Node includes:
 
 ```
-Component	   Specification	         Notes
-Camera	       TP-Link Tapo C510W	     Wi-Fi enabled, RTSP stream required
-Controller     Raspberry Pi Zero 2 W     Quad-core, 512MB RAM, runs capture & upload scripts
-Storage	       32–128GB microSD	         Industrial-grade preferred
-Connectivity   4G router or USB modem	 Provides internet for uploads
-Power	       5V stable supply (≥2.5A)  Protects against brownouts, optional UPS recommended
-Mounting	   Fixed, stable surface	 Prevents movement; ensures consistent framing
+Component	   Specification	                      Notes
+Camera	       TP-Link Tapo C510W	                  Wi-Fi enabled, configured for RTSP
+Controller     Raspberry Pi Zero 2 W (RP3A0)         Quad-core 1GHz CPU, 512MB RAM, Wi-Fi AP
+RTC Module	   DS3231 Real-Time Clock	              Maintains accurate time without internet
+Storage	       128GB microSD (Industrial-grade)      For Pi OS, scripts, and image archive
+Connectivity   None required (Standalone AP)	      Creates its own Wi-Fi network
+Power	       12V Solar System (Victron 75/15)      Powers camera & Pi via buck converter
+Mounting	   Fixed, stable surface	              Prevents movement; ensures consistent framing
 
 ```
 
 ---
 
-**2. Software Requirements**
+## 2. Raspberry Pi Software Architecture
 
-Node Software
+The Pi is the heart of the node, acting as a clock, a network host, a data capture device, and a web server. The software is layered to ensure reliability and autonomous operation.
 
-OS: Raspberry Pi OS Lite (no desktop, UTC timezone)
+### 2.1. Core OS and Base Services
 
-Packages:
+*   **OS:** Raspberry Pi OS Lite (64-bit) with UTC timezone.
+*   **Init System:** `systemd` for managing all services and ensuring they start on boot.
+*   **Time Management:**
+    *   `i2c-tools` and `rtc-ds3231` kernel module are enabled to read time from the DS3231 hardware clock at boot.
+    *   `ntpd` is installed but configured to use the local RTC as its primary time source, acting as a Stratum 1 time server for the local network.
+*   **Memory Management:** A 1GB swap file is created on the SD card to prevent out-of-memory errors under load.
 
-ffmpeg (for RTSP frame capture)
+### 2.2. Network Infrastructure
 
-curl or rclone (for uploads)
+*   **Access Point (`hostapd`):** Creates a standalone Wi-Fi network named `Tapo_Field_Net` with a WPA2 password. The Pi's interface `wlan0` is assigned a static IP of `192.168.4.1`.
+*   **DHCP & DNS (`dnsmasq`):**
+    *   Acts as the DHCP server, assigning IP addresses (e.g., `192.168.4.10`) to clients that connect to the AP (like the camera and the user's laptop).
+    *   Acts as the DNS server with two critical custom rules:
+        1.  **Time Server Spoofing:** All requests for `time.windows.com` and `pool.ntp.org` are resolved to `192.168.4.1`. This forces the Tapo camera to sync its clock with the Pi's RTC.
+        2.  **Captive Portal Redirection:** All other DNS requests (`address=/#/192.168.4.1`) are resolved to `192.168.4.1`. This forces any user connecting to the Wi-Fi to see the Pi's local web interface, regardless of what URL they type in their browser.
 
+### 2.3. Data Capture and Storage
 
-Scripts:
+*   **Capture Script (`capture.sh`):** A `systemd` timer triggers this script once every hour, at the top of the hour.
+    *   It uses `ffmpeg` to connect to the camera's RTSP stream (`rtsp://USER:PASS@192.168.4.X:554/stream1`).
+    *   It captures a single frame (`-vframes 1`) with high quality (`-q:v 2`) after a short seek (`-ss 2`) to ensure the buffer is full.
+    *   The command is wrapped in a `timeout 30s` to prevent hangs.
+    *   The output is saved with a deterministic filename: `/home/pi/stills/img_$(date +%Y%m%d_%H).jpg`.
+    *   **Failure Handling:** If `ffmpeg` fails (e.g., camera offline), the script generates a black frame of the same resolution to preserve timeline integrity.
 
-capture.sh – captures image, generates black frame on failure
+### 2.4. User Interface and Data Retrieval
 
-upload.sh – uploads images to cloud storage
-
-
-Scheduler: systemd timers (reliable, persistent, ensures hourly capture)
-
-
-Cloud Infrastructure
-
-Cloudflare R2 – append-only object storage for image archive
-
-Cloudflare Worker – serves images via deterministic URLs, returns black frame if missing
-
-GitHub Pages – frontend interface for timeline display (static site)
-
-
-
----
-
-**3. Capture Flow (Node)**
-
-1. Determine timestamp – UTC-based hourly timestamp: YYYYMMDD_HH_UTC.
-
-
-2. Capture image from RTSP stream using ffmpeg.
-
-
-3. Validate image – if missing or corrupted, generate black frame.
-
-
-4. Save locally in folder structure:
-
-
-
-/data/raw/{YYYY}/{MM}/{DD}/{YYYYMMDD_HH_UTC}.jpg
-
-Local storage acts as buffer in case of network failure.
-
-Files are append-only; no deletion or overwrite occurs.
-
-
+*   **Web Server (Python Flask):** A lightweight Flask application runs as a `systemd` service on port 80.
+    *   **Backend (`app.py`):**
+        *   Serves the main HTML page at the root URL (`/`).
+        *   Handles a `/download` route. When triggered, it scans the `/home/pi/stills/` directory, dynamically creates a ZIP archive of all `.jpg` files, and sends it to the user as a downloadable attachment.
+    *   **Frontend (`templates/index.html`):** A simple, clean HTML page providing system status (last capture time, total images) and a prominent "Download All Images" button.
 
 ---
 
-**4. Upload Flow (Node → Archive)**
+## 3. End-to-End User Workflow
 
-4.1. Node scans local storage for files not yet uploaded.
+This workflow covers the entire process from initial setup to retrieving the image archive.
 
+### Step 1: Initial Camera Pairing (At Home)
 
-4.2. Uploads images to Cloudflare R2 bucket, preserving folder structure:
+This one-time setup requires internet.
+1.  Connect your phone and the Tapo C510W to your home Wi-Fi.
+2.  Using the Tapo app, create a camera account (Username/Password) for RTSP access.
+3.  In the camera's settings, change its Wi-Fi credentials to match the Pi's future AP (`Tapo_Field_Net` and your chosen password).
+4.  Power down the camera. It is now configured and will seek out the Pi's network upon power-up.
 
+### Step 2: Field Deployment
 
+1.  Physically mount the camera and Pi in their final, fixed positions.
+2.  Connect the camera and Pi to the solar power system.
+3.  Power on the system. The Pi will boot, initialize its RTC, create the Wi-Fi AP, and start the NTP server.
+4.  Power on the camera. It will connect to the `Tapo_Field_Net` AP, receive its time from the Pi, and begin streaming.
 
-rclone copy /data/raw/node-001 r2:bucket-name/node-001
+### Step 3: Autonomous Operation
 
-4.3. Upload failures are retried automatically; local copy remains intact.
+*   The system now runs unattended.
+*   Every hour, the Pi's `capture.sh` script snaps a still from the camera's stream and saves it locally.
+*   The camera continues to record 24/7 video to its own SD card as a redundant backup.
+*   The Pi's web server is always running, waiting for a connection.
 
+### Step 4: Image Retrieval (In the Field)
 
-4.4. Black frames are uploaded just like real captures to preserve timeline determinism.
-
-
-4.5. No database is required; object store is the canonical archive.
-
-
-
-
----
-
-**5. Cloud Archive (R2)**
-
-Each image is stored as a permanent object in R2:
-
-
-/{node_id}/{YYYY}/{MM}/{DD}/{YYYYMMDD_HH_UTC}.jpg
-
-Immutability and append-only nature ensure full historical archive.
-
-Optional: bucket versioning for additional integrity.
-
-Can be served directly via CDN or proxied through a Worker.
-
-
+This is the new, simplified retrieval process.
+1.  **Approach the Node:** A field technician arrives on-site with a laptop.
+2.  **Connect to Wi-Fi:** On the laptop, open the Wi-Fi settings and connect to `Tapo_Field_Net`.
+3.  **Open Browser:** Launch any web browser (e.g., Chrome, Firefox).
+4.  **Access Control Panel:** Type any website address (e.g., `google.com`). Due to the DNS redirection, the browser will load the CTRL–P control panel from the Pi at `http://192.168.4.1`.
+5.  **Download Archive:** On the control panel webpage, click the **"Download All Images (.zip)"** button. The browser will begin downloading a single ZIP file containing all images captured since the last retrieval.
+6.  **Completion:** Once the download is finished, the technician can disconnect from the Wi-Fi and leave. The node continues its operation uninterrupted.
 
 ---
 
-**6. Web Feed Interface**
-
-Frontend
-
-Hosted on GitHub Pages (static site)
-
-Knows:
-
-node_id
-
-start_date
-
-
-Generates deterministic URLs for images:
-
-
-https://worker.example.workers.dev/{node_id}/{YYYY}/{MM}/{DD}/{YYYYMMDD_HH_UTC}.jpg
-
-Displays black frame if image does not exist (404).
-
-
-Worker Logic
-
-1. Receives request for image.
-
-
-2. Checks R2 bucket for object.
-
-
-3. If object exists → returns image.
-
-
-4. If object missing → returns black frame.
-
-
-
-Timeline Reconstruction
-
-Frontend does not query existence of files.
-
-Timeline is fully deterministic from node start date → present.
-
-Optional optimizations:
-
-Lazy loading by day or hour
-
-Precomputed thumbnails for faster rendering
-
-
-
-
----
-
-**7. Failure Handling**
-
-```
-Failure Mode	  Behavior
-Camera offline	  Black frame generated locally
-Node offline	  Image missing for that hour
-Network down	  Upload delayed; black frame may temporarily appear
-Upload fails 	  Retry later, no overwrite
-Pi crash	      Systemd timer ensures next capture resumes after reboot
-
-```
-
-Principle: Failure is visible and deterministic, never silently hidden.
-
-
----
-
-**8. Optional Enhancements**
-
-Cloudflare Worker can serve multiple nodes.
-
-Edge caching via Cloudflare CDN improves global feed performance.
-
-
-
----
-
-**9. Summary**
-
-CTRL–P feed infrastructure is:
-
-1. Hardware: TP-Link camera + Raspberry Pi Zero 2 W + 4G connectivity
-
-
-2. Node software: Capture script, black frame fallback, upload to R2
-
-
-3. Archive: Cloudflare R2 object storage (append-only, immutable)
-
-
-4. Worker: Edge-serving with deterministic fallback for missing frames
-
-
-5. Frontend: GitHub Pages static site, generates timeline based on UTC timestamps
-
-
-6. Failure visibility: Black frames for missing images; all failures are deterministic
-
-
-
-This design achieves:
-
-Minimal infrastructure
-
-Robust, long-term operation
-
-Simple, deterministic, append-only visual timeline
-
-No backend or database required
-
+## 4. Summary of the v2.0 Architecture
+
+This design achieves a highly robust and user-friendly archival system:
+
+1.  **Hardware:** A self-contained unit (Pi Zero 2 W + Camera + RTC) powered by solar.
+2.  **Network:** A private, standalone Wi-Fi network provides time sync and a user interface, eliminating the need for 4G connectivity.
+3.  **Software Architecture:** A layered stack of services (`hostapd`, `dnsmasq`, `ntpd`, `systemd` timers, Flask) ensures autonomous, reliable operation.
+4.  **Data Integrity:** Hourly captures are stored in an append-only local archive, with black frames marking failures.
+5.  **User Experience:** A "zero-config" web interface makes data retrieval as simple as connecting to Wi-Fi and clicking a button, with no technical knowledge required.
