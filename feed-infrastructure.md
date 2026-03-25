@@ -19,9 +19,9 @@ Component	   Specification	                      Notes
 Camera	       TP-Link Tapo C510W	                  Wi-Fi enabled, configured for RTSP
 Controller     Raspberry Pi Zero 2 W (RP3A0)          Quad-core 1GHz CPU, 512MB RAM, Wi-Fi AP
 RTC Module	   DS3231 Real-Time Clock	              Maintains accurate time without internet
-Storage	       128GB microSD (Industrial-grade)        For Pi OS, scripts, and image archive
+Storage	       128GB microSD (Industrial-grade)       For Pi OS, scripts, and image archive
 Connectivity   None required (Standalone AP)	      Creates its own Wi-Fi network
-Power	       12V Solar System (Victron 75/15)        Powers camera & Pi via buck converter
+Power	       12V Solar System (Victron 75/15)       Powers camera & Pi via buck converter
 Mounting	   Fixed, stable surface	              Prevents movement; ensures consistent framing
 
 ```
