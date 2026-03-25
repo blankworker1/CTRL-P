@@ -16,7 +16,7 @@ It documents them.
 
 ---
 
-## Definition
+**Definition**
 
 The Feed is a sequential archive of images captured by Nodes.
 
@@ -31,14 +31,17 @@ One clock state
 
 The Feed begins at a Node’s installation date and continues indefinitely.
 
-There is no deletion.
+The Feed is generated as a continuous hourly timeline from this origin.
 
+Each expected frame is resolved by timestamp.
+
+There is no deletion.
 There is no retroactive editing.
 
 
 ---
 
-## Capture Requirements
+**Capture Requirements**
 
 Each active Node must:
 
@@ -60,19 +63,23 @@ node_id
 
 Images are appended to the archive in strict time order.
 
+Image order is determined by timestamp, not upload time.
+
 
 ---
 
-## Absence Handling
+**Absence Handling**
 
 If an image is not captured or transmitted:
 
 A black frame is inserted
 
+The frame follows the same timestamp position
+
 The frame is stamped with UTC timestamp and state index
 
-The sequence continues
 
+The sequence continues without interruption.
 
 Absence does not pause the protocol.
 
@@ -81,7 +88,7 @@ The gap becomes visible in the ledger.
 
 ---
 
-## Immutability
+**Immutability**
 
 Once appended:
 
@@ -99,11 +106,25 @@ Continuity is preserved even when content changes.
 
 ---
 
-## Structure
+**Structure**
 
 For each Node:
 
 Genesis → Hour 1 → Hour 2 → … → Present
+
+The Feed is constructed as a continuous hourly sequence derived from:
+
+Node installation timestamp
+
+Current UTC time
+
+
+Each hourly position must resolve to either:
+
+A captured image
+
+A black frame
+
 
 Across Nodes:
 
@@ -118,11 +139,11 @@ Node ID
 
 The Feed may be viewed:
 
-As a vertical chronological list of Cycles
+As a horizontal continuous timeline
 
-As a horizontal set of Panels 
+As a set of Cycles
 
-As a downloadable time-lapse photo sequence
+As a downloadable time-lapse sequence
 
 
 Presentation may vary.
@@ -132,7 +153,27 @@ Sequence does not.
 
 ---
 
-## Relationship to the Clock
+**Interface Behaviour**
+
+When rendered:
+
+The default view is the most recent frame
+
+Navigation is horizontal (drag or scroll)
+
+Image order is fixed
+
+No frames are skipped or collapsed
+
+
+Only visible frames are loaded as required.
+
+The full sequence remains intact.
+
+
+---
+
+**Relationship to the Clock**
 
 The Feed does not calculate time.
 
@@ -154,7 +195,7 @@ The Feed reveals adherence.
 
 ---
 
-## Integrity Conditions
+**Integrity Conditions**
 
 The Feed is considered valid if:
 
@@ -174,19 +215,17 @@ Breaks do not invalidate the image chain.
 
 ---
 
-## Principle
+**Principle**
 
-The Feed is not commentary. It is not curation. It is not narrative.
+The Feed is not commentary.
+It is not curation.
+It is not narrative.
 
 It is accumulated time made visible.
 
 The Clock governs.
-
 The Node performs.
-
 The Feed records.
-
 The Cycle repeats.
 
 Continuity is the proof.
-
