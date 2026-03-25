@@ -25,7 +25,7 @@ Node Components
 Each CTRL–P Node includes:
 
 Component	Specification	Notes
-
+```
 Camera	TP-Link Tapo C510W	Wi-Fi enabled, RTSP stream required
 Controller	Raspberry Pi Zero 2 W	Quad-core, 512MB RAM, runs capture & upload scripts
 Storage	32–128GB microSD	Industrial-grade preferred
@@ -33,9 +33,7 @@ Connectivity	4G router or USB modem	Provides internet for uploads
 Power	5V stable supply (≥2.5A)	Protects against brownouts, optional UPS recommended
 Mounting	Fixed, stable surface	Prevents movement; ensures consistent framing
 
-
-Optional: ESP32 microcontroller for monitoring or environmental sensing (not part of image capture pipeline).
-
+```
 
 ---
 
@@ -213,10 +211,6 @@ Principle: Failure is visible and deterministic, never silently hidden.
 **8. Optional Enhancements**
 
 Cloudflare Worker can serve multiple nodes.
-
-Node metadata can be optionally cached in Workers KV (for large-scale deployment).
-
-Home server can be used as optional local backup, but R2 provides primary global archive.
 
 Edge caching via Cloudflare CDN improves global feed performance.
 
